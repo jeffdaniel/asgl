@@ -7,8 +7,7 @@
 asgl(x, y, index, family = c("gaussian", "binomial"), offset = NULL,
   alpha = 0.95, lambda = NULL, lambda_min = 0.1, nlambda = 20,
   maxit = 1000, thresh = 0.001, gamma = 0.8, step = 1,
-  reset = 10, standardize = FALSE, grp_weights = NULL,
-  ind_weights = NULL)
+  standardize = FALSE, grp_weights = NULL, ind_weights = NULL)
 }
 \arguments{
 \item{x}{Input matrix of dimensions \emph{n} by \emph{p}.}

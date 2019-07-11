@@ -68,7 +68,7 @@
 asgl <- function(x, y, index, family = c("gaussian", "binomial"),
                  offset = NULL, alpha = 0.95, lambda = NULL, lambda_min = 0.1,
                  nlambda = 20, maxit = 1000, thresh = 0.001, gamma = 0.8,
-                 step = 1, reset = 10, standardize = FALSE,
+                 step = 1, standardize = FALSE,
                  grp_weights = NULL, ind_weights = NULL){
 
   # Validate input matrix
