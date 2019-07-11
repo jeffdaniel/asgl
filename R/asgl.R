@@ -238,8 +238,9 @@ asgl <- function(x, y, index, family = c("gaussian", "binomial"),
               intercepts = as.double(intercepts))
   }
 
-  result <- list(beta = result$allbeta, lambda = result$lambda,
-                 intercept = result$intercepts, X.transform = X.transform)
+  result <- list(beta = result$allbeta, intercept = result$intercepts,
+                 lambda = result$lambda, family = family,
+                 X.transform = X.transform)
   result$beta <- matrix(result$beta, nrow = nvar, ncol = nlambda)
   result$beta <- result$beta[unOrd, ]
   class(result) <- "asgl"
