@@ -1,13 +1,15 @@
 Package: asgl
-Title: What the Package Does (One Line, Title Case)
+Title: Fit a GLM with Adaptive Sparse Group Lasso Penalty
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Jeffrey",
+           family = "Daniel",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "jdaniel@uoguelph.ca")
+Description: Fit a generalized linear model via penalized maximum likelihood.
+    The regularization path is computed for the adaptive sparse group lasso 
+    penalty along a sequence of tuning parameter values. Supports linear and 
+    logistic regression.
 License: What license it uses
 Encoding: UTF-8
 LazyData: true
