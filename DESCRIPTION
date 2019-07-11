@@ -10,7 +10,7 @@ Description: Fit a generalized linear model via penalized maximum likelihood.
     The regularization path is computed for the adaptive sparse group lasso 
     penalty along a sequence of tuning parameter values. Supports linear and 
     logistic regression.
-License: What license it uses
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
