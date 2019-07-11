@@ -62,8 +62,7 @@
 #' asgl(x, y, index, family = "binomial",
 #'      grp_weights = grp_weights, ind_weights = ind_weights)
 #'
-#' @useDynLib asgl fit_gaussian
-#' @useDynLib asgl fit_binomial
+#' @useDynLib asgl, .registration = TRUE
 #' @export
 asgl <- function(x, y, index, family = c("gaussian", "binomial"),
                  offset = NULL, alpha = 0.95, lambda = NULL, lambda_min = 0.1,
