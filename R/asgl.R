@@ -1,3 +1,67 @@
+#' Fit a GLM with Adaptive Sparse Group Lasso Penalty
+#'
+#' Fit a generalized linear model via penalized maximum likelihood. The
+#' regularization path is computed for the adaptive sparse group lasso penalty
+#' along a sequence of tuning parameter values. Supports linear and logistic
+#' regression.
+#'
+#' @param x Input matrix of dimensions \emph{n} by \emph{p}.
+#' @param y Response vector of length \emph{n}. For linear models
+#'        (\code{family = "gaussian"}), a numeric vector; for logistic models
+#'        (\code{family = "binomial"}), a categorical factor with two levels.
+#' @param index A vector of length \emph{p} defining group membership for each
+#'        covariate.
+#' @param family Response type. One of \code{"gaussian"} or \code{"binomial"}.
+#' @param offset Optional. A vector of length \emph{n} to be included in the
+#'        linear predictor
+#' @param alpha Penalty mixing parameter. The penalty reduces to the adaptive
+#'        group lasso if \code{alpha = 0} and to the adaptive lasso if
+#'        \code{alpha = 0}.
+#' @param lambda Optional. A vector of user-specified penalty tuning parameter
+#'        values at which to fit model. If \code{NULL}, the sequence is chosen
+#'        automatically (recommended).
+#' @param lambda_min Smallest tuning parameter value, as a fraction of the
+#'        largest parameter value in the sequence (the smallest value for which
+#'        all coefficients are zero).
+#' @param nlambda The number of tuning parameter values in the sequence.
+#' @param maxit Maximum number of iterations until convergence
+#' @param thresh Convergence threshold for change in model coefficient values.
+#' @param gamma Backtracking parameter for use in gradient descent step
+#' @param step Initial gradient descent step size.
+#' @param standardize If \code{TRUE}, variables are standardized prior to model
+#'        fitting.
+#' @param grp_weights A vector of weights for each group of coefficients, the
+#'        same length as \code{index}.
+#' @param ind_weights A vector of weights for each indiviual coefficient, of
+#'        length \emph{p}.
+#'
+#' @return An object of class "\code{asgl}"
+#'
+#' @examples
+#' # linear regression
+#' n <- 500; p <- 20; groupsize <- 5
+#' index <- ceiling(1:p / groupsize)
+#' beta <- (-2:2)
+#' x <- matrix(rnorm(n * p), ncol = p, nrow = n)
+#' y <- as.vector(x[,1:5] %*% beta + 0.1 * rnorm(n))
+#' asgl(x, y, index, family = "gaussian")
+#'
+#' # logistic regression
+#' eta <- x[, 1:5] %*% beta
+#' prob <- exp(eta) / (1 + exp(eta))
+#' y <- rbinom(n, 1, prob)
+#' asgl(x, y, index, family = "binomial")
+#'
+#' # adaptive weights
+#' coefs <- glm.fit(x, y, family = binomial())$coefficients
+#' ind_weights <- 1 / abs(coefs)
+#' grp_weights <- numeric(length(unique(index)))
+#' for (i in unique(index)) {
+#'   grp_weights[i] <-  1 / sqrt(sum(coefs[which(index == i)]^2))
+#' }
+#' asgl(x, y, index, family = "binomial",
+#'      grp_weights = grp_weights, ind_weights = ind_weights)
+#'
 #' @useDynLib asgl fit_gaussian
 #' @useDynLib asgl fit_binomial
 #' @export
