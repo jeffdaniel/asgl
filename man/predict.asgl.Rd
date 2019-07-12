@@ -25,6 +25,28 @@ probabilities.}
 
 \item{...}{Ignored.}
 }
+\value{
+A matrix of predictions or, if \code{s} is of length 1, a vector of
+        predictions.
+}
 \description{
 Makes predictions from a fitted 'asgl' object.
+}
+\examples{
+# linear regression
+n <- 500; p <- 20; groupsize <- 5
+index <- ceiling(1:p / groupsize)
+beta <- (-2:2)
+x <- matrix(rnorm(n * p), ncol = p, nrow = n)
+y <- as.vector(x[,1:5] \%*\% beta + 0.1 * rnorm(n))
+fit1 <- asgl(x, y, index, family = "gaussian")
+predict(fit1, x)
+
+# logistic regression
+eta <- x[, 1:5] \%*\% beta
+prob <- exp(eta) / (1 + exp(eta))
+y <- rbinom(n, 1, prob)
+fit2 <- asgl(x, y, index, family = "binomial")
+predict(fit2, x, s = fit2$lambda[20], type = "response")
+
 }
