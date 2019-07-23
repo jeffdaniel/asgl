@@ -515,8 +515,8 @@ void fit_binomial(double *alpha, double *allbeta, double *beta, int *rangeLambda
     do { // Iterate until convergence
 
       oldBetaZero = betaZero[0];
-      for (int i = 0; i < p; i++) {
-   	    oldBeta[i] = beta[i];
+      for (int j = 0; j < p; j++) {
+   	    oldBeta[j] = beta[j];
       }
 
       // Update solution
@@ -527,12 +527,15 @@ void fit_binomial(double *alpha, double *allbeta, double *beta, int *rangeLambda
 
       // Check convergence criteria
       count++; check = fabs(oldBetaZero - betaZero[0]);
-      for (int i = 0; i < p; i++) {
-   	    check += fabs(oldBeta[i] - beta[i]);
+      for (int j = 0; j < p; j++) {
+   	    check += fabs(oldBeta[j] - beta[j]);
       }
     } while (count < outerIter[0] && check > outerThresh[0]);
 
     intercepts[i] = betaZero[0];
+    if (i < (nlam[0] - 1)) {
+      intercepts[i + 1] = intercepts[i];
+    }
     int start = rangeLambdaInd[i];
     int end = rangeLambdaInd[i] + ncol[0];
     for (int j = start; j < end; j++) {

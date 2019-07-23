@@ -213,7 +213,7 @@ asgl <- function(x, y, index, family = c("gaussian", "binomial"),
   if (family == "binomial") {
 
     intercepts <- rep(log(sum(y)) - log(nobs - sum(y)), nlambda)
-    eta <- eta + intercepts[1] + offset
+    eta <- eta + intercepts[1]
 
     result <- .C("fit_binomial",
               alpha = as.double(alpha),
